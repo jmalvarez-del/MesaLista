@@ -1,0 +1,24 @@
+{
+  "name": "mesalista",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmalvarez-del/MesaLista.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/jmalvarez-del/MesaLista/issues"
+  },
+  "homepage": "https://github.com/jmalvarez-del/MesaLista#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
