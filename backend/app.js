@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const sequelize = require("./config/database");
 const User = require("./models/User");
+const bcrypt = require("bcrypt");
 
 const app = express();
 
@@ -21,8 +22,24 @@ app.get("/users", async (req, res) => {
 
 app.post("/users", async (req, res) => {
     try {
-        const user = await User.create(req.body);
-        res.status(201).json(user);
+        const { name, age, email, password } = req.body;
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const user = await User.create({
+            name,
+            age,
+            email,
+            password: hashedPassword
+        });
+
+        res.status(201).json({
+            id: user.id,
+            name: user.name,
+            age: user.age,
+            email: user.email
+        });
+
     } catch (error) {
         res.status(400).json({
             error: error.message
@@ -36,7 +53,7 @@ async function startServer() {
 
         console.log("✅ Conexión con PostgreSQL exitosa");
 
-        await sequelize.sync();
+        await sequelize.sync({ alter: true });
 
         console.log("✅ Tabla users sincronizada");
 
