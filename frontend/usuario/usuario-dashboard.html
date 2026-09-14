@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MesaLista - Usuario</title>
+</head>
+
+<body>
+
+    <h1>MesaLista</h1>
+
+    <h2>Panel del cliente</h2>
+
+    <p>Bienvenido a MesaLista.</p>
+
+    <hr>
+
+    <button id="inicio-btn">Inicio</button>
+    <button id="reservas-btn">Reservar mesa</button>
+    <button id="mis-reservas-btn">Mis reservas</button>
+    <button id="cerrar-sesion">Cerrar sesión</button>
+
+    <hr>
+
+    <!-- INICIO -->
+    <section id="inicio-section">
+
+        <h2>Inicio</h2>
+
+        <p>
+            Desde aquí puedes consultar las mesas disponibles
+            y administrar tus reservas.
+        </p>
+
+    </section>
+
+    <!-- RESERVAR MESA -->
+    <section id="reservas-section" style="display: none;">
+
+        <h2>Reservar mesa</h2>
+
+        <p>
+            Selecciona la fecha, hora y número de personas
+            para consultar la disponibilidad.
+        </p>
+
+        <label for="date">Fecha:</label>
+        <input type="date" id="date">
+
+        <br><br>
+
+        <label for="time">Hora:</label>
+        <input type="time" id="time">
+
+        <br><br>
+
+        <label for="numberOfPeople">
+            Número de personas:
+        </label>
+
+        <input type="number" id="numberOfPeople" min="1">
+
+        <br><br>
+
+        <button id="consultar-disponibilidad">
+            Consultar mesas disponibles
+        </button>
+
+        <div id="mesas-disponibles"></div>
+
+    </section>
+
+    <!-- MIS RESERVAS -->
+    <section id="mis-reservas-section" style="display: none;">
+
+        <h2>Mis reservas</h2>
+
+        <button id="cargar-mis-reservas">
+            Actualizar mis reservas
+        </button>
+
+        <pre id="lista-mis-reservas"></pre>
+
+    </section>
+
+    <script src="usuario-dashboard.js"></script>
+
+</body>
+</html>

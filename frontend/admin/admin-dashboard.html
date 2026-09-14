@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MesaLista - Administrador</title>
+</head>
+
+<body>
+
+    <h1>MesaLista</h1>
+
+    <h2>Panel de Administrador</h2>
+
+    <p>Bienvenido, administrador.</p>
+
+    <hr>
+
+    <button id="inicio-btn">Inicio</button>
+    <button id="reservas-btn">Reservas</button>
+    <button id="usuarios-btn">Usuarios</button>
+    <button id="cerrar-sesion">Cerrar sesión</button>
+
+    <hr>
+
+    <section id="inicio-section">
+
+        <h2>Inicio</h2>
+
+        <p>Desde este panel puedes administrar MesaLista.</p>
+
+    </section>
+
+
+    <section id="reservas-section" style="display: none;">
+
+        <h2>Gestión de reservas</h2>
+
+        <h3>Crear reserva</h3>
+
+        <form id="reserva-form">
+
+            <label for="userId">ID del usuario</label>
+            <input type="number" id="userId" required>
+
+            <br><br>
+
+            <label for="tableNumber">Número de mesa</label>
+            <input type="number" id="tableNumber" required>
+
+            <br><br>
+
+            <label for="date">Fecha</label>
+            <input type="date" id="date" required>
+
+            <br><br>
+
+            <label for="time">Hora</label>
+            <input type="time" id="time" required>
+
+            <br><br>
+
+            <label for="numberOfPeople">Número de personas</label>
+            <input type="number" id="numberOfPeople" required>
+
+            <br><br>
+
+            <button type="submit">Crear reserva</button>
+
+        </form>
+
+        <p id="mensaje"></p>
+
+        <h3>Reservas existentes</h3>
+
+        <button id="cargar-reservas">Actualizar reservas</button>
+
+        <pre id="lista-reservas"></pre>
+
+    </section>
+
+    <section id="usuarios-section" style="display: none;">
+    <h2>Gestión de usuarios</h2>
+
+    <button id="cargar-usuarios">Actualizar usuarios</button>
+
+    <pre id="lista-usuarios"></pre>
+
+    </section>
+
+
+    <script src="admin-dashboard.js"></script>
+
+</body>
+</html>
