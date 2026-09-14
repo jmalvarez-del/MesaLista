@@ -1,29 +1,52 @@
 const express = require("express");
 const cors = require("cors");
+const sequelize = require("./config/database");
+const User = require("./models/User");
 
 const app = express();
 
-const users = [
-    {
-        name: "María",
-        age: "33",
-        email: "maria.gmail.com"
-    },
-    {
-        name: "Mario",
-        age: "33",
-        email: "mario.gmail.com"
-    },
-];
+app.use(cors());
+app.use(express.json());
 
-app.use(cors()); // Habilitar CORS para todas las rutas
-
-app.get("/users", (req, res) => {
-    res.json(users); // envía la lista al cliente
+app.get("/users", async (req, res) => {
+    try {
+        const users = await User.findAll();
+        res.json(users);
+    } catch (error) {
+        res.status(500).json({
+            error: "Error al obtener los usuarios"
+        });
+    }
 });
 
-// TODO: CREAR AQUÍ LOS DEMÁS MÉTODOS
-
-app.listen(3000, () => {
-    console.log("El servidor está escuchando en el puerto 3000");
+app.post("/users", async (req, res) => {
+    try {
+        const user = await User.create(req.body);
+        res.status(201).json(user);
+    } catch (error) {
+        res.status(400).json({
+            error: error.message
+        });
+    }
 });
+
+async function startServer() {
+    try {
+        await sequelize.authenticate();
+
+        console.log("✅ Conexión con PostgreSQL exitosa");
+
+        await sequelize.sync();
+
+        console.log("✅ Tabla users sincronizada");
+
+        app.listen(3000, () => {
+            console.log("🚀 Servidor escuchando en el puerto 3000");
+        });
+
+    } catch (error) {
+        console.error("❌ Error:", error.message);
+    }
+}
+
+startServer();
