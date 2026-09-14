@@ -3,11 +3,14 @@ const cors = require("cors");
 const sequelize = require("./config/database");
 const User = require("./models/User");
 const bcrypt = require("bcrypt");
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+app.use("/auth", authRoutes);
 
 app.get("/users", async (req, res) => {
     try {
