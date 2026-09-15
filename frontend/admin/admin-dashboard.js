@@ -91,32 +91,98 @@ document.getElementById("reserva-form").addEventListener("submit", async (event)
 });
 
 
-// Obtener reservas
 async function cargarReservas() {
 
+    const contenedor = document.getElementById("lista-reservas");
+
+    contenedor.innerHTML = "<p>Cargando reservas...</p>";
+
     try {
-        const respuesta = await fetch("http://localhost:3000/reservations", {
-            headers: {
-                "Authorization": `Bearer ${token}`
+
+        const respuesta = await fetch(
+            "http://localhost:3000/reservations",
+            {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
             }
-        });
+        );
 
         const data = await respuesta.json();
 
         if (!respuesta.ok) {
-            document.getElementById("lista-reservas").textContent =
-                data.error || "Error al obtener las reservas";
+
+            contenedor.innerHTML = `
+                <p>❌ ${data.error || "Error al obtener las reservas"}</p>
+            `;
+
             return;
         }
 
-        document.getElementById("lista-reservas").textContent =
-            JSON.stringify(data, null, 2);
+        if (data.length === 0) {
+
+            contenedor.innerHTML = `
+                <p>No hay reservas registradas.</p>
+            `;
+
+            return;
+        }
+
+        contenedor.innerHTML = "";
+
+        data.forEach(reserva => {
+
+            const tarjeta = document.createElement("div");
+
+            tarjeta.className = "tarjeta-reserva";
+
+            tarjeta.innerHTML = `
+                <h3>Reserva #${reserva.id}</h3>
+
+                <p>
+                    <strong>Usuario:</strong>
+                    ${reserva.userId}
+                </p>
+
+                <p>
+                    <strong>Mesa:</strong>
+                    ${reserva.tableNumber}
+                </p>
+
+                <p>
+                    <strong>Fecha:</strong>
+                    ${reserva.date}
+                </p>
+
+                <p>
+                    <strong>Hora:</strong>
+                    ${reserva.time}
+                </p>
+
+                <p>
+                    <strong>Personas:</strong>
+                    ${reserva.numberOfPeople}
+                </p>
+
+                <p>
+                    <strong>Estado:</strong>
+                    <span class="estado-reserva">
+                        ${reserva.status}
+                    </span>
+                </p>
+            `;
+
+            contenedor.appendChild(tarjeta);
+
+        });
 
     } catch (error) {
+
         console.error(error);
 
-        document.getElementById("lista-reservas").textContent =
-            "No se pudo conectar con el servidor";
+        contenedor.innerHTML = `
+            <p>❌ No se pudo conectar con el servidor.</p>
+        `;
     }
 }
 
@@ -125,32 +191,87 @@ document.getElementById("cargar-reservas")
 
     // Obtener usuarios
 async function cargarUsuarios() {
+
+    const contenedor = document.getElementById("lista-usuarios");
+
+    contenedor.innerHTML = "<p>Cargando usuarios...</p>";
+
     try {
-        const respuesta = await fetch("http://localhost:3000/users", {
-            headers: {
-                "Authorization": `Bearer ${token}`
+
+        const respuesta = await fetch(
+            "http://localhost:3000/users",
+            {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
             }
-        });
+        );
 
         const data = await respuesta.json();
 
         if (!respuesta.ok) {
-            document.getElementById("lista-usuarios").textContent =
-                data.error || "Error al obtener los usuarios";
+
+            contenedor.innerHTML = `
+                <p>❌ ${data.error || "Error al obtener los usuarios"}</p>
+            `;
+
             return;
         }
 
-        document.getElementById("lista-usuarios").textContent =
-            JSON.stringify(data, null, 2);
+        if (data.length === 0) {
+
+            contenedor.innerHTML = `
+                <p>No hay usuarios registrados.</p>
+            `;
+
+            return;
+        }
+
+        contenedor.innerHTML = "";
+
+        data.forEach(usuario => {
+
+            const tarjeta = document.createElement("div");
+
+            tarjeta.className = "tarjeta-usuario";
+
+            tarjeta.innerHTML = `
+                <h3>${usuario.name}</h3>
+
+                <p>
+                    <strong>ID:</strong>
+                    ${usuario.id}
+                </p>
+
+                <p>
+                    <strong>Edad:</strong>
+                    ${usuario.age}
+                </p>
+
+                <p>
+                    <strong>Correo:</strong>
+                    ${usuario.email}
+                </p>
+
+                <p>
+                    <strong>Rol:</strong>
+                    ${usuario.role}
+                </p>
+            `;
+
+            contenedor.appendChild(tarjeta);
+
+        });
 
     } catch (error) {
+
         console.error(error);
 
-        document.getElementById("lista-usuarios").textContent =
-            "No se pudo conectar con el servidor";
+        contenedor.innerHTML = `
+            <p>❌ No se pudo conectar con el servidor.</p>
+        `;
     }
 }
-
 document.getElementById("cargar-usuarios")
     .addEventListener("click", cargarUsuarios);
     
