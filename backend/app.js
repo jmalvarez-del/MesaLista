@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const cors = require("cors");
 const sequelize = require("./config/database");
 const User = require("./models/User");
@@ -10,7 +11,7 @@ const userRoutes = require("./routes/userRoutes");
 const { authenticateToken, requireAdmin } = require("./middleware/authMiddleware");
 
 const app = express();
-
+app.use(express.static(path.join(__dirname, "../frontend")));
 app.use(cors());
 app.use(express.json());
 
