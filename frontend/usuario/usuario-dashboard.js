@@ -9,6 +9,10 @@ const inicioSection = document.getElementById("inicio-section");
 const reservasSection = document.getElementById("reservas-section");
 const misReservasSection = document.getElementById("mis-reservas-section");
 
+// ============================
+// NAVEGACIÓN
+// ============================
+
 // INICIO
 document.getElementById("inicio-btn").addEventListener("click", () => {
 
@@ -45,7 +49,12 @@ document.getElementById("cerrar-sesion").addEventListener("click", () => {
     window.location.href = "../index.html";
 
 });
+
+
+// ============================
 // CONSULTAR MESAS DISPONIBLES
+// ============================
+
 document.getElementById("consultar-disponibilidad").addEventListener("click", async () => {
 
     const date = document.getElementById("date").value;
@@ -55,9 +64,14 @@ document.getElementById("consultar-disponibilidad").addEventListener("click", as
     const contenedor = document.getElementById("mesas-disponibles");
 
     if (!date || !time || !numberOfPeople) {
-        contenedor.innerHTML = "<p>Completa todos los campos.</p>";
+
+        contenedor.innerHTML =
+            "<p>Completa todos los campos para consultar la disponibilidad.</p>";
+
         return;
     }
+
+    contenedor.innerHTML = "<p>Consultando mesas disponibles...</p>";
 
     try {
 
@@ -73,151 +87,291 @@ document.getElementById("consultar-disponibilidad").addEventListener("click", as
         const mesas = await respuesta.json();
 
         if (!respuesta.ok) {
-            contenedor.innerHTML = `<p>${mesas.error}</p>`;
+
+            contenedor.innerHTML =
+                `<p>❌ ${mesas.error}</p>`;
+
             return;
         }
 
         if (mesas.length === 0) {
-            contenedor.innerHTML = "<p>No hay mesas disponibles para esos datos.</p>";
+
+            contenedor.innerHTML = `
+                <div class="sin-reservas">
+                    <p>
+                        No hay mesas disponibles para la fecha,
+                        hora y cantidad de personas seleccionadas.
+                    </p>
+                </div>
+            `;
+
             return;
         }
 
-        contenedor.innerHTML = "<h3>Mesas disponibles:</h3>";
+        contenedor.innerHTML =
+            "<h3>Mesas disponibles</h3>";
 
         mesas.forEach(mesa => {
 
-    const boton = document.createElement("button");
+            const tarjeta = document.createElement("div");
 
-    boton.textContent =
-        `Mesa ${mesa.number} - ${mesa.type} - ${mesa.capacity} personas`;
+            tarjeta.className = "mesa";
 
-    boton.style.display = "block";
-    boton.style.margin = "10px 0";
+            tarjeta.innerHTML = `
+                <h3>Mesa ${mesa.number}</h3>
 
-    boton.addEventListener("click", () => {
+                <p>
+                    <strong>Tipo:</strong> ${mesa.type}
+                </p>
 
-        document.querySelectorAll("#mesas-disponibles button")
-            .forEach(boton => {
-                boton.style.fontWeight = "normal";
+                <p>
+                    <strong>Capacidad:</strong>
+                    ${mesa.capacity} personas
+                </p>
+
+                <button class="seleccionar-mesa">
+                    Seleccionar mesa
+                </button>
+            `;
+
+            const boton = tarjeta.querySelector(".seleccionar-mesa");
+
+            boton.addEventListener("click", () => {
+
+                // Quitar selección anterior
+                document
+                    .querySelectorAll(".mesa")
+                    .forEach(mesaElemento => {
+                        mesaElemento.style.border =
+                            "1px solid #ddd";
+                    });
+
+                // Marcar mesa seleccionada
+                tarjeta.style.border =
+                    "2px solid #16a34a";
+
+                window.mesaSeleccionada = mesa.number;
+
+                mostrarConfirmacion(
+                    contenedor,
+                    mesa,
+                    date,
+                    time,
+                    numberOfPeople
+                );
             });
 
-        boton.style.fontWeight = "bold";
+            contenedor.appendChild(tarjeta);
 
-       window.mesaSeleccionada = mesa.number;
+        });
 
-let confirmacion = document.getElementById("confirmacion-reserva");
+    } catch (error) {
 
-if (!confirmacion) {
-    confirmacion = document.createElement("div");
-    confirmacion.id = "confirmacion-reserva";
-    confirmacion.style.marginTop = "20px";
+        console.error(error);
 
-    contenedor.appendChild(confirmacion);
-}
-
-confirmacion.innerHTML = `
-    <p>
-        ✅ Mesa ${mesa.number} seleccionada
-    </p>
-
-    <button id="confirmar-reserva">
-        Confirmar reserva
-    </button>
-`;
-
-document.getElementById("confirmar-reserva").addEventListener("click", async () => {
-
-    try {
-
-        const respuesta = await fetch(
-            "http://localhost:3000/reservations/client",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + token
-                },
-                body: JSON.stringify({
-                    tableNumber: window.mesaSeleccionada,
-                    date: date,
-                    time: time,
-                    numberOfPeople: numberOfPeople
-                })
-            }
-        );
-
-        const data = await respuesta.json();
-
-        if (!respuesta.ok) {
-            confirmacion.innerHTML = `<p>❌ ${data.error}</p>`;
-            return;
-        }
-
-        confirmacion.innerHTML = `
-            <p>✅ Reserva creada correctamente.</p>
+        contenedor.innerHTML = `
             <p>
-                Mesa: ${data.reserva.tableNumber}<br>
-                Fecha: ${data.reserva.date}<br>
-                Hora: ${data.reserva.time}<br>
-                Personas: ${data.reserva.numberOfPeople}
+                ❌ No se pudo consultar la disponibilidad.
             </p>
         `;
-
-    } catch (error) {
-
-        console.error(error);
-
-        confirmacion.innerHTML =
-            "<p>❌ No se pudo crear la reserva.</p>";
     }
 });
-    });
 
-    contenedor.appendChild(boton);
-    });
-    } catch (error) {
 
-        console.error(error);
+// ============================
+// CONFIRMAR RESERVA
+// ============================
+
+function mostrarConfirmacion(
+    contenedor,
+    mesa,
+    date,
+    time,
+    numberOfPeople
+) {
+
+    const modal = document.getElementById("modal-reserva");
+    const mensaje = document.getElementById("modal-mensaje");
+    const cancelar = document.getElementById("cancelar-reserva");
+    const confirmar = document.getElementById("confirmar-reserva");
+
+    mensaje.innerHTML = `
+        <strong>Mesa ${mesa.number}</strong><br><br>
+
+        <strong>Fecha:</strong> ${date}<br>
+        <strong>Hora:</strong> ${time}<br>
+        <strong>Personas:</strong> ${numberOfPeople}
+    `;
+
+    modal.style.display = "flex";
+
+    cancelar.onclick = () => {
+        modal.style.display = "none";
+    };
+
+    confirmar.onclick = async () => {
+
+        confirmar.disabled = true;
+        confirmar.textContent = "Confirmando...";
+
+        try {
+
+            const respuesta = await fetch(
+                "http://localhost:3000/reservations/client",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + token
+                    },
+
+                    body: JSON.stringify({
+                        tableNumber: window.mesaSeleccionada,
+                        date: date,
+                        time: time,
+                        numberOfPeople: numberOfPeople
+                    })
+                }
+            );
+
+            const data = await respuesta.json();
+
+            if (!respuesta.ok) {
+
+                mensaje.innerHTML = `
+                    <p>❌ ${data.error}</p>
+                `;
+
+                confirmar.disabled = false;
+                confirmar.textContent = "Sí, confirmar reserva";
+
+                return;
+            }
+
+            modal.style.display = "none";
+
+            alert("✅ Reserva creada correctamente.");
+
+        } catch (error) {
+
+            console.error(error);
+
+            mensaje.innerHTML = `
+                <p>
+                    ❌ No se pudo crear la reserva.
+                </p>
+            `;
+
+            confirmar.disabled = false;
+            confirmar.textContent = "Sí, confirmar reserva";
+        }
+    };
+}
+
+
+// ============================
+// CARGAR MIS RESERVAS
+// ============================
+
+document
+    .getElementById("cargar-mis-reservas")
+    .addEventListener("click", async () => {
+
+        const contenedor =
+            document.getElementById("lista-mis-reservas");
 
         contenedor.innerHTML =
-            "<p>No se pudo consultar la disponibilidad.</p>";
-    }
-});
-// CARGAR MIS RESERVAS
-document.getElementById("cargar-mis-reservas").addEventListener("click", async () => {
+            "<p>Cargando reservas...</p>";
 
-    const contenedor = document.getElementById("lista-mis-reservas");
+        try {
 
-    try {
-
-        const respuesta = await fetch(
-            "http://localhost:3000/reservations/my",
-            {
-                headers: {
-                    "Authorization": "Bearer " + token
+            const respuesta = await fetch(
+                "http://localhost:3000/reservations/my",
+                {
+                    headers: {
+                        "Authorization": "Bearer " + token
+                    }
                 }
+            );
+
+            const reservas = await respuesta.json();
+
+            if (!respuesta.ok) {
+
+                contenedor.innerHTML =
+                    `<p>❌ ${reservas.error}</p>`;
+
+                return;
             }
-        );
 
-        const reservas = await respuesta.json();
+            if (reservas.length === 0) {
 
-        if (!respuesta.ok) {
-            contenedor.textContent = reservas.error;
-            return;
+                contenedor.innerHTML = `
+                    <div class="sin-reservas">
+                        <p>
+                            No tienes reservas registradas.
+                        </p>
+                    </div>
+                `;
+
+                return;
+            }
+
+            contenedor.innerHTML = "";
+
+            reservas.forEach(reserva => {
+
+                const tarjeta =
+                    document.createElement("div");
+
+                tarjeta.className = "reserva";
+
+                tarjeta.innerHTML = `
+                    <h3>
+                        Reserva #${reserva.id}
+                    </h3>
+
+                    <p>
+                        <strong>Mesa:</strong>
+                        ${reserva.tableNumber}
+                    </p>
+
+                    <p>
+                        <strong>Fecha:</strong>
+                        ${reserva.date}
+                    </p>
+
+                    <p>
+                        <strong>Hora:</strong>
+                        ${reserva.time}
+                    </p>
+
+                    <p>
+                        <strong>Personas:</strong>
+                        ${reserva.numberOfPeople}
+                    </p>
+
+                    <p>
+                        <strong>Estado:</strong>
+                        <span class="estado">
+                            ${reserva.status}
+                        </span>
+                    </p>
+                `;
+
+                contenedor.appendChild(tarjeta);
+
+            });
+
+        } catch (error) {
+
+            console.error(error);
+
+            contenedor.innerHTML = `
+                <p>
+                    ❌ No se pudieron cargar tus reservas.
+                </p>
+            `;
         }
-
-        if (reservas.length === 0) {
-            contenedor.textContent = "No tienes reservas.";
-            return;
-        }
-
-        contenedor.textContent = JSON.stringify(reservas, null, 2);
-
-    } catch (error) {
-
-        console.error(error);
-
-        contenedor.textContent =
-            "No se pudieron cargar tus reservas.";
-    }
-});
+    });
