@@ -1,0 +1,132 @@
+
+/* Configuración general */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f3f5f7;
+    color: #263238;
+}
+
+/* Encabezado */
+header {
+    background-color: #173b35;
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+header h1 {
+    font-size: 40px;
+    margin: 0 0 10px;
+}
+
+header p {
+    font-size: 16px;
+    margin: 0;
+}
+
+/* Contenido principal */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+}
+
+/* Formulario de inicio de sesión */
+section {
+    background-color: white;
+    width: 100%;
+    max-width: 420px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+}
+
+section h2 {
+    text-align: center;
+    margin-top: 0;
+    color: #173b35;
+}
+
+section > p {
+    text-align: center;
+    color: #65736f;
+}
+
+/* Campos del formulario */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5d1;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+input:focus {
+    outline: 2px solid #4b8f79;
+    border-color: #4b8f79;
+}
+
+/* Botón de ingreso */
+button {
+    background-color: #26745c;
+    color: white;
+    border: none;
+    padding: 13px;
+    margin-top: 15px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #1b5946;
+}
+
+/* Pie de página */
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #65736f;
+    font-size: 14px;
+}
+
+/* Diseño para celulares */
+@media (max-width: 600px) {
+    header {
+        padding: 24px 15px;
+    }
+
+    header h1 {
+        font-size: 30px;
+    }
+
+    header p {
+        font-size: 14px;
+    }
+
+    main {
+        padding: 30px 15px;
+    }
+
+    section {
+        padding: 22px;
+    }
+}
