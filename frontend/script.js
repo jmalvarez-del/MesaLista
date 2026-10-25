@@ -1,11 +1,14 @@
-const loginForm = document.getElementById("login-form");
+
+const loginForm = document.getElementById("loginForm");
 const mensaje = document.getElementById("mensaje");
 
-loginForm.addEventListener("submit", async (event) => {
+loginForm.addEventListener("submit", async function (event) {
     event.preventDefault();
 
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
+
+    mensaje.textContent = "Iniciando sesión...";
 
     try {
         const respuesta = await fetch("http://localhost:3000/auth/login", {
@@ -14,36 +17,40 @@ loginForm.addEventListener("submit", async (event) => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                email,
-                password
+                email: email,
+                password: password
             })
         });
 
-        const data = await respuesta.json();
+        const datos = await respuesta.json();
 
         if (!respuesta.ok) {
-            mensaje.textContent = data.error;
+            mensaje.textContent = datos.error || "No fue posible iniciar sesión.";
             return;
         }
 
-        // Guardamos el token
-        localStorage.setItem("token", data.token);
+        if (!datos.token) {
+            mensaje.textContent = "El servidor no devolvió el token de acceso.";
+            return;
+        }
 
-        // Decodificamos el contenido del JWT
-        const payload = JSON.parse(atob(data.token.split(".")[1]));
+        // Leer el contenido del token JWT
+        const partesToken = datos.token.split(".");
+        const payload = JSON.parse(atob(partesToken[1]));
 
-        // Guardamos el rol
-        localStorage.setItem("role", payload.role);
+        // Guardar el acceso
+        localStorage.setItem("token", datos.token);
+        localStorage.setItem("usuario", JSON.stringify(payload));
 
-        // Redirigimos según el rol
+        // Redirigir según el rol del usuario
         if (payload.role === "admin") {
-            window.location.href = "admin/admin-dashboard.html";
+            window.location.href = "/admin/admin-dashboard.html";
         } else {
-            window.location.href = "usuario/usuario-dashboard.html";
+            window.location.href = "/usuario/usuario-dashboard.html";
         }
 
     } catch (error) {
-        mensaje.textContent = "No se pudo conectar con el servidor";
-        console.error(error);
+        mensaje.textContent = "No se pudo conectar con el servidor.";
+        console.error("Error de inicio de sesión:", error);
     }
 });
