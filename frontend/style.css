@@ -130,3 +130,138 @@ footer {
         padding: 22px;
     }
 }
+
+/* ==============================
+   PANEL DE ADMINISTRADOR
+============================== */
+
+/* Menú de navegación */
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    background-color: #22594b;
+    padding: 15px 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+nav a:hover {
+    background-color: #173b35;
+}
+
+/* Contenido del panel */
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 35px 20px;
+}
+
+/* Secciones del panel */
+main section {
+    width: 100%;
+    max-width: none;
+    padding: 25px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
+}
+
+main section h2 {
+    text-align: left;
+    color: #173b35;
+    margin-top: 0;
+}
+
+main section > p {
+    text-align: left;
+    line-height: 1.6;
+}
+
+/* Tabla de reservas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 14px 12px;
+    border-bottom: 1px solid #e0e7e4;
+}
+
+th {
+    background-color: #e7f0ec;
+    color: #173b35;
+    font-size: 14px;
+}
+
+td {
+    font-size: 14px;
+}
+
+tbody tr:hover {
+    background-color: #f3f8f5;
+}
+
+/* Permitir desplazamiento horizontal de tablas */
+#reservas {
+    overflow-x: auto;
+}
+
+/* Pie de página */
+footer {
+    margin-top: 20px;
+    background-color: #e7eeeb;
+    padding: 20px;
+}
+
+/* Diseño adaptable */
+@media (max-width: 600px) {
+    nav {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 12px;
+    }
+
+    nav a {
+        text-align: center;
+    }
+
+    main {
+        padding: 20px 12px;
+        gap: 18px;
+    }
+
+    main section {
+        padding: 18px;
+    }
+
+    header h1 {
+        font-size: 30px;
+    }
+
+    table {
+        min-width: 650px;
+    }
+
+    th,
+    td {
+        padding: 10px;
+    }
+}
