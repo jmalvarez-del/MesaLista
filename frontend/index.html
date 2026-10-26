@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MesaLista - Iniciar sesión</title>
+    <title>MesaLista - Acceso</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,39 +16,102 @@
 
     <main>
         <section>
-            <h2>Iniciar sesión</h2>
-            <p>Ingresa tus datos para continuar.</p>
+            <!-- Formulario de inicio de sesión -->
+            <div id="contenedorLogin">
+                <h2>Iniciar sesión</h2>
+                <p>Ingresa tus datos para continuar.</p>
 
-            <form id="loginForm">
-                <label for="email">Correo electrónico</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="Ingresa tu correo"
-                    required
-                >
+                <form id="loginForm">
+                    <label for="email">Correo electrónico</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Ingresa tu correo"
+                        required
+                    >
 
-                <label for="password">Contraseña</label>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    placeholder="Ingresa tu contraseña"
-                    required
-                >
+                    <label for="password">Contraseña</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Ingresa tu contraseña"
+                        required
+                    >
 
-                <button type="submit">Ingresar</button>
-            </form>
+                    <button type="submit">Ingresar</button>
+                </form>
 
-            <p id="mensaje"></p>
+                <p>¿Todavía no tienes una cuenta?</p>
+                <p>
+                    <a href="#" id="mostrarRegistro">Crear una cuenta</a>
+                </p>
+            </div>
+
+            <!-- Formulario de registro -->
+            <div id="contenedorRegistro" hidden>
+                <h2>Crear cuenta</h2>
+                <p>Regístrate para utilizar MesaLista.</p>
+
+                <form id="registroForm">
+                    <label for="nombreRegistro">Nombre completo</label>
+                    <input
+                        type="text"
+                        id="nombreRegistro"
+                        name="name"
+                        placeholder="Ingresa tu nombre"
+                        maxlength="100"
+                        required
+                    >
+
+                    <label for="edadRegistro">Edad</label>
+                    <input
+                        type="number"
+                        id="edadRegistro"
+                        name="age"
+                        min="18"
+                        max="120"
+                        placeholder="Ingresa tu edad"
+                        required
+                    >
+
+                    <label for="correoRegistro">Correo electrónico</label>
+                    <input
+                        type="email"
+                        id="correoRegistro"
+                        name="email"
+                        placeholder="Ingresa tu correo"
+                        required
+                    >
+
+                    <label for="contrasenaRegistro">Contraseña</label>
+                    <input
+                        type="password"
+                        id="contrasenaRegistro"
+                        name="password"
+                        minlength="8"
+                        placeholder="Mínimo 8 caracteres"
+                        required
+                    >
+
+                    <button type="submit">Registrarme</button>
+                </form>
+
+                <p>¿Ya tienes una cuenta?</p>
+                <p>
+                    <a href="#" id="mostrarLogin">Iniciar sesión</a>
+                </p>
+            </div>
+
+            <p id="mensaje" role="status" aria-live="polite"></p>
         </section>
     </main>
 
     <footer>
         <p>MesaLista - Sistema de gestión de reservas</p>
     </footer>
-    <script src="js/api.js"></script>
-    <script src="js/login.js"></script>  
+
+    <script src="js/login.js"></script>
 </body>
 </html>
