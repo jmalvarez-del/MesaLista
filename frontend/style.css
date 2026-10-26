@@ -265,3 +265,264 @@ footer {
         padding: 10px;
     }
 }
+
+/* ==============================
+   PANEL DE USUARIO
+============================== */
+
+.usuario-page {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f3f5f7;
+    color: #263238;
+}
+
+/* Encabezado */
+
+.usuario-page header {
+    background-color: #173b35;
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.usuario-page header h1 {
+    font-size: 40px;
+    margin: 0 0 10px;
+}
+
+.usuario-page header p {
+    font-size: 16px;
+    margin: 0;
+}
+
+/* Menú de navegación */
+
+.usuario-page nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    background-color: #22594b;
+    padding: 15px 20px;
+}
+
+.usuario-page nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.usuario-page nav a:hover {
+    background-color: #173b35;
+}
+
+/* Contenido principal */
+
+.usuario-page main {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 35px 20px;
+}
+
+/* Secciones */
+
+.usuario-page main section {
+    width: 100%;
+    max-width: none;
+    padding: 25px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
+}
+
+.usuario-page main section h2 {
+    text-align: left;
+    color: #173b35;
+    margin-top: 0;
+}
+
+.usuario-page main section p {
+    line-height: 1.6;
+}
+
+/* Formulario de reservas */
+
+.usuario-page form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.usuario-page label {
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.usuario-page input,
+.usuario-page select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5d1;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: white;
+}
+
+.usuario-page input:focus,
+.usuario-page select:focus {
+    outline: 2px solid #4b8f79;
+    border-color: #4b8f79;
+}
+
+/* Botones */
+
+.usuario-page button {
+    background-color: #26745c;
+    color: white;
+    border: none;
+    padding: 13px;
+    margin-top: 15px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.usuario-page button:hover {
+    background-color: #1b5946;
+}
+
+/* Botón de cancelar reserva */
+
+.usuario-page button.btn-cancelar {
+    background-color: #a63d40;
+    padding: 9px 12px;
+    font-size: 14px;
+}
+
+.usuario-page button.btn-cancelar:hover {
+    background-color: #842f32;
+}
+
+/* Tabla de reservas */
+
+.usuario-page table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+}
+
+.usuario-page th,
+.usuario-page td {
+    text-align: left;
+    padding: 14px 12px;
+    border-bottom: 1px solid #e0e7e4;
+}
+
+.usuario-page th {
+    background-color: #e7f0ec;
+    color: #173b35;
+    font-size: 14px;
+}
+
+.usuario-page td {
+    font-size: 14px;
+}
+
+.usuario-page tbody tr:hover {
+    background-color: #f3f8f5;
+}
+
+/* Mensajes del sistema */
+
+.usuario-page .mensaje {
+    padding: 12px;
+    margin-top: 15px;
+    border-radius: 6px;
+    background-color: #e7f0ec;
+    color: #173b35;
+}
+
+/* Pie de página */
+
+.usuario-page footer {
+    margin-top: 20px;
+    background-color: #e7eeeb;
+    padding: 20px;
+    text-align: center;
+    color: #65736f;
+    font-size: 14px;
+}
+
+/* 
+   DISEÑO RESPONSIVE */
+
+@media (max-width: 600px) {
+    .usuario-page header {
+        padding: 24px 15px;
+    }
+
+    .usuario-page header h1 {
+        font-size: 30px;
+    }
+
+    .usuario-page header p {
+        font-size: 14px;
+    }
+
+    .usuario-page nav {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 12px;
+    }
+
+    .usuario-page nav a {
+        text-align: center;
+    }
+
+    .usuario-page main {
+        padding: 20px 12px;
+        gap: 18px;
+    }
+
+    .usuario-page main section {
+        padding: 18px;
+    }
+
+    .usuario-page table {
+        min-width: 600px;
+    }
+
+    .usuario-page th,
+    .usuario-page td {
+        padding: 10px;
+    }
+}
+.usuario-page .usuario-header .usuario-logo {
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 40px;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: normal;
+}
+
+.usuario-page .usuario-header .usuario-logo span {
+    color: white;
+    font-size: inherit;
+}
+
+@media (max-width: 600px) {
+    .usuario-page .usuario-header .usuario-logo {
+        font-size: 40px;
+    }
+}
