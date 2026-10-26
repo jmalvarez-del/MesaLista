@@ -403,3 +403,173 @@ actualizarReservas.addEventListener("click", cargarReservas);
 if (token) {
     cargarReservas();
 }
+
+
+/* ==============================
+   RESEÑAS DEL RESTAURANTE
+============================== */
+
+const formResena = document.getElementById("formResena");
+const selectorEstrellas = document.getElementById("selectorEstrellas");
+const textoCalificacion = document.getElementById("textoCalificacion");
+const comentarioResena = document.getElementById("comentarioResena");
+const mensajeResena = document.getElementById("mensajeResena");
+const listaResenas = document.getElementById("listaResenas");
+
+let calificacionResena = 0;
+
+// Seleccionar las estrellas.
+if (selectorEstrellas) {
+    const estrellas = selectorEstrellas.querySelectorAll("[data-rating]");
+
+    estrellas.forEach((estrella) => {
+        estrella.addEventListener("click", () => {
+            calificacionResena = Number(estrella.dataset.rating);
+
+            estrellas.forEach((otraEstrella) => {
+                const seleccionada =
+                    Number(otraEstrella.dataset.rating) <= calificacionResena;
+
+                otraEstrella.style.color = seleccionada ? "#EAB308" : "#9CA3AF";
+                otraEstrella.setAttribute(
+                    "aria-pressed",
+                    String(Number(otraEstrella.dataset.rating) === calificacionResena)
+                );
+            });
+
+            textoCalificacion.textContent =
+                `${calificacionResena} de 5 estrellas`;
+        });
+    });
+}
+
+// Consultar las reseñas publicadas.
+async function cargarResenas() {
+    if (!listaResenas) return;
+
+    listaResenas.replaceChildren();
+
+    const cargando = document.createElement("p");
+    cargando.textContent = "Cargando reseñas...";
+    listaResenas.appendChild(cargando);
+
+    try {
+        const respuesta = await fetch(`${API_URL}/restaurant-reviews`);
+        const resenas = await respuesta.json();
+
+        if (!respuesta.ok) {
+            throw new Error(resenas.error || "No se pudieron consultar las reseñas");
+        }
+
+        listaResenas.replaceChildren();
+
+        if (resenas.length === 0) {
+            const vacio = document.createElement("p");
+            vacio.textContent = "Todavía no hay reseñas. ¡Sé el primero en compartir tu experiencia!";
+            listaResenas.appendChild(vacio);
+            return;
+        }
+
+        resenas.forEach((resena) => {
+            const tarjeta = document.createElement("article");
+            tarjeta.className = "resena-tarjeta";
+
+            const autor = document.createElement("h4");
+            autor.textContent = resena.User?.name || "Cliente";
+
+            const estrellas = document.createElement("p");
+            estrellas.className = "resena-estrellas";
+            estrellas.textContent =
+                "★".repeat(Number(resena.rating)) +
+                "☆".repeat(5 - Number(resena.rating));
+
+            const comentario = document.createElement("p");
+            comentario.textContent = resena.comment;
+
+            const fecha = document.createElement("small");
+            fecha.textContent = resena.createdAt
+                ? new Date(resena.createdAt).toLocaleDateString("es-CO")
+                : "";
+
+            tarjeta.append(autor, estrellas, comentario, fecha);
+            listaResenas.appendChild(tarjeta);
+        });
+    } catch (error) {
+        console.error("Error al cargar reseñas:", error);
+        listaResenas.replaceChildren();
+
+        const mensaje = document.createElement("p");
+        mensaje.textContent = "No fue posible cargar las reseñas.";
+        listaResenas.appendChild(mensaje);
+    }
+}
+
+// Publicar una reseña del restaurante.
+if (formResena) {
+    formResena.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const tokenResena = localStorage.getItem("token");
+        const comentario = comentarioResena.value.trim();
+
+        if (!tokenResena) {
+            mensajeResena.textContent = "Debes iniciar sesión para publicar una reseña.";
+            return;
+        }
+
+        if (calificacionResena < 1 || calificacionResena > 5) {
+            mensajeResena.textContent = "Selecciona una calificación de 1 a 5 estrellas.";
+            return;
+        }
+
+        if (!comentario) {
+            mensajeResena.textContent = "Escribe tu experiencia en el restaurante.";
+            return;
+        }
+
+        const boton = formResena.querySelector('button[type="submit"]');
+        boton.disabled = true;
+        mensajeResena.textContent = "Publicando reseña...";
+
+        try {
+            const respuesta = await fetch(`${API_URL}/restaurant-reviews`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${tokenResena}`
+                },
+                body: JSON.stringify({
+                    rating: calificacionResena,
+                    comment: comentario
+                })
+            });
+
+            const datos = await respuesta.json();
+
+            if (!respuesta.ok) {
+                throw new Error(datos.error || "No se pudo publicar la reseña");
+            }
+
+            mensajeResena.textContent = "¡Tu reseña se publicó correctamente!";
+            formResena.reset();
+
+            calificacionResena = 0;
+            selectorEstrellas.querySelectorAll("[data-rating]").forEach((estrella) => {
+                estrella.style.color = "#9CA3AF";
+                estrella.setAttribute("aria-pressed", "false");
+            });
+
+            textoCalificacion.textContent = "Selecciona de 1 a 5 estrellas.";
+
+            await cargarResenas();
+        } catch (error) {
+            console.error("Error al publicar reseña:", error);
+            mensajeResena.textContent = error.message;
+        } finally {
+            boton.disabled = false;
+        }
+    });
+}
+
+// Cargar las reseñas al abrir el panel.
+cargarResenas();

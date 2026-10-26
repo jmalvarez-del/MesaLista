@@ -17,6 +17,7 @@
             <a href="#inicio">Inicio</a>
             <a href="#crear-reserva">Reservar</a>
             <a href="#mis-reservas">Mis reservas</a>
+            <a href="#resenas">Reseñas</a>
             <button id="cerrarSesion" class="btn-cerrar-sesion" type="button">
                 Cerrar sesión
             </button>
@@ -111,12 +112,70 @@
                 </table>
             </div>
         </section>
+<section class="usuario-seccion" id="resenas">
+    <div class="usuario-titulo-seccion">
+        <p class="usuario-etiqueta">TU OPINIÓN CUENTA</p>
+        <h2>Reseñas del restaurante</h2>
+        <p>Califica tu experiencia en MesaLista y comparte tu opinión.</p>
+    </div>
+
+    <div class="resenas-contenedor">
+        <form id="formResena" class="usuario-formulario">
+            <div class="usuario-campo">
+                <label>Calificación</label>
+
+                <div class="resenas-estrellas" id="selectorEstrellas"
+                     role="group" aria-label="Calificación del restaurante">
+                    <button type="button" class="resena-estrella"
+                            data-rating="1" aria-label="1 estrella">★</button>
+                    <button type="button" class="resena-estrella"
+                            data-rating="2" aria-label="2 estrellas">★</button>
+                    <button type="button" class="resena-estrella"
+                            data-rating="3" aria-label="3 estrellas">★</button>
+                    <button type="button" class="resena-estrella"
+                            data-rating="4" aria-label="4 estrellas">★</button>
+                    <button type="button" class="resena-estrella"
+                            data-rating="5" aria-label="5 estrellas">★</button>
+                </div>
+
+                <p id="textoCalificacion">Selecciona de 1 a 5 estrellas.</p>
+            </div>
+
+            <div class="usuario-campo">
+                <label for="comentarioResena">Cuéntanos tu experiencia</label>
+                <textarea
+                    id="comentarioResena"
+                    name="comment"
+                    rows="4"
+                    maxlength="2000"
+                    placeholder="¿Cómo estuvo la atención, el ambiente y tu visita?"
+                    required
+                ></textarea>
+            </div>
+
+            <button type="submit" class="usuario-boton-principal">
+                Publicar reseña
+            </button>
+
+            <p id="mensajeResena" class="usuario-mensaje" role="status"></p>
+        </form>
+
+        <div class="resenas-listado">
+            <h3>Opiniones de nuestros clientes</h3>
+            <div id="listaResenas">
+                <p>Cargando reseñas...</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
     </main>
 
     <footer class="usuario-footer">
         <p>© 2026 MesaLista. Tu mesa, a un clic.</p>
     </footer>
-    
+
 <div id="modalMesas" class="usuario-modal" hidden>
     <div class="usuario-modal-contenido" role="dialog"
          aria-modal="true" aria-labelledby="tituloModalMesas">

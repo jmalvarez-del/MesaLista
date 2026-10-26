@@ -644,3 +644,313 @@ footer {
         width: 100%;
     }
 }
+
+
+/* =========================================
+   RESEÑAS DEL RESTAURANTE - MESALISTA
+========================================= */
+
+#resenas {
+    scroll-margin-top: 90px;
+}
+
+#resenas .usuario-titulo-seccion {
+    margin-bottom: 28px;
+}
+
+#resenas .resenas-contenedor {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 28px;
+    align-items: start;
+}
+
+#resenas .usuario-formulario,
+#resenas .resenas-listado {
+    min-width: 0;
+    padding: 28px;
+    background: #ffffff;
+    border: 1px solid #e8e5e1;
+    border-radius: 18px;
+    box-shadow: 0 8px 28px rgba(36, 30, 24, 0.06);
+}
+
+#resenas .usuario-formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+#resenas .usuario-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+}
+
+#resenas .usuario-campo label {
+    font-weight: 600;
+    color: #292622;
+    line-height: 1.5;
+}
+
+#resenas .resenas-estrellas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+#resenas .resena-estrella {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border: 1px solid #e9e2d3;
+    border-radius: 12px;
+    background: #faf8f4;
+    color: #a8a29e;
+    font-size: 30px;
+    line-height: 1;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+#resenas .resena-estrella:hover {
+    background: #fff3cd;
+    border-color: #eab308;
+    transform: translateY(-2px);
+}
+
+#resenas .resena-estrella:focus-visible {
+    outline: 3px solid #2563eb;
+    outline-offset: 3px;
+}
+
+#resenas #textoCalificacion {
+    margin: 4px 0 0;
+    color: #756044;
+    font-size: 0.9rem;
+}
+
+#resenas #comentarioResena {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 140px;
+    padding: 14px 16px;
+    resize: vertical;
+    border: 1px solid #d9d5cf;
+    border-radius: 12px;
+    background: #fff;
+    color: #292622;
+    font: inherit;
+    line-height: 1.6;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#resenas #comentarioResena::placeholder {
+    color: #96918a;
+}
+
+#resenas #comentarioResena:focus {
+    outline: none;
+    border-color: #a66b3f;
+    box-shadow: 0 0 0 3px rgba(166, 107, 63, 0.14);
+}
+
+#resenas .usuario-formulario .usuario-boton-principal {
+    width: 100%;
+    min-height: 48px;
+    justify-content: center;
+    border-radius: 12px;
+    font-weight: 700;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+#resenas .usuario-formulario .usuario-boton-principal:hover {
+    transform: translateY(-1px);
+}
+
+#resenas .usuario-formulario .usuario-boton-principal:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+
+#resenas .resenas-listado h3 {
+    margin: 0 0 20px;
+    color: #292622;
+    font-size: 1.2rem;
+    line-height: 1.4;
+}
+
+#resenas #listaResenas {
+    display: grid;
+    gap: 16px;
+}
+
+#resenas .resena-tarjeta {
+    min-width: 0;
+    padding: 20px;
+    border: 1px solid #eee9e2;
+    border-radius: 14px;
+    background: #fcfbf9;
+    overflow-wrap: anywhere;
+}
+
+#resenas .resena-tarjeta h4 {
+    margin: 0 0 8px;
+    color: #292622;
+    font-size: 1rem;
+}
+
+#resenas .resena-tarjeta .resena-estrellas {
+    margin: 0 0 12px;
+    color: #d69e00;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+}
+
+#resenas .resena-tarjeta > p:not(.resena-estrellas) {
+    margin: 0 0 14px;
+    color: #514c46;
+    line-height: 1.7;
+    white-space: pre-wrap;
+}
+
+#resenas .resena-tarjeta small {
+    color: #827b72;
+    font-size: 0.82rem;
+}
+
+#resenas #mensajeResena {
+    margin: 0;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+/* Tabletas */
+@media (max-width: 900px) {
+    #resenas .resenas-contenedor {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 22px;
+    }
+
+    #resenas .usuario-formulario,
+    #resenas .resenas-listado {
+        padding: 24px;
+    }
+}
+
+/* Celulares */
+@media (max-width: 600px) {
+    #resenas {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    #resenas .usuario-titulo-seccion {
+        margin-bottom: 20px;
+    }
+
+    #resenas .usuario-formulario,
+    #resenas .resenas-listado {
+        padding: 18px;
+        border-radius: 14px;
+    }
+
+    #resenas .resenas-estrellas {
+        gap: 6px;
+    }
+
+    #resenas .resena-estrella {
+        width: 42px;
+        height: 42px;
+        border-radius: 10px;
+        font-size: 26px;
+    }
+
+    #resenas #comentarioResena {
+        min-height: 120px;
+        font-size: 16px;
+    }
+
+    #resenas .resena-tarjeta {
+        padding: 16px;
+    }
+}
+
+/* Respeta las preferencias de movimiento del usuario */
+@media (prefers-reduced-motion: reduce) {
+    #resenas *,
+    #resenas *::before,
+    #resenas *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}
+
+
+/* Estrellas de calificación: diseño limpio, sin recuadros */
+#resenas .resenas-estrellas {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+#resenas .resena-estrella {
+    background: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    color: #cbd5e1;
+    font-size: 38px;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+#resenas .resena-estrella:hover {
+    color: #f5b301;
+    transform: scale(1.15);
+}
+
+#resenas .resena-estrella:focus-visible {
+    outline: 2px solid #f5b301;
+    outline-offset: 4px;
+    border-radius: 3px;
+}
+
+/* Texto de la calificación */
+#resenas #textoCalificacion {
+    color: #64748b;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+/* Estrellas de las reseñas ya publicadas */
+#resenas .resena-tarjeta .resena-estrellas {
+    color: #f5b301;
+    font-size: 22px;
+    letter-spacing: 2px;
+    margin: 8px 0;
+}
+
+@media (max-width: 600px) {
+    #resenas .resena-estrella {
+        font-size: 34px;
+    }
+
+    #resenas .resenas-estrellas {
+        gap: 6px;
+    }
+}
