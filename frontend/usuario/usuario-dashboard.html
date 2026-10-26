@@ -116,5 +116,39 @@
     <footer class="usuario-footer">
         <p>© 2026 MesaLista. Tu mesa, a un clic.</p>
     </footer>
+    
+<div id="modalMesas" class="usuario-modal" hidden>
+    <div class="usuario-modal-contenido" role="dialog"
+         aria-modal="true" aria-labelledby="tituloModalMesas">
+
+        <button type="button" id="cerrarModalMesas"
+                class="usuario-modal-cerrar" aria-label="Cerrar">
+            &times;
+        </button>
+
+        <p class="usuario-etiqueta">ELIGE TU MESA</p>
+        <h2 id="tituloModalMesas">Mesas disponibles</h2>
+        <p id="resumenReserva"></p>
+
+        <div id="listaMesas" class="usuario-lista-mesas"></div>
+
+        <p id="mensajeMesas" class="usuario-mensaje" role="status"></p>
+
+        <div class="usuario-modal-acciones">
+            <button type="button" id="cancelarSeleccionMesa"
+                    class="usuario-boton-secundario">
+                Volver
+            </button>
+
+            <button type="button" id="confirmarMesa"
+                    class="usuario-boton-principal" disabled>
+                Confirmar reserva
+            </button>
+        </div>
+    </div>
+</div>
+
 </body>
+
+
 </html>

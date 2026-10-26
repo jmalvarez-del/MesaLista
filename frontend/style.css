@@ -526,3 +526,121 @@ footer {
         font-size: 40px;
     }
 }
+
+
+.usuario-modal[hidden] {
+    display: none !important;
+}
+
+.usuario-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.65);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+.usuario-modal-contenido {
+    background: white;
+    width: 100%;
+    max-width: 600px;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 30px;
+    border-radius: 16px;
+    position: relative;
+    box-sizing: border-box;
+    color: #222;
+}
+
+.usuario-modal-contenido h2 {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.usuario-modal-cerrar {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+    border: none;
+    background: transparent;
+    font-size: 30px;
+    cursor: pointer;
+    color: #444;
+}
+
+.usuario-lista-mesas {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.usuario-mesa-opcion {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.usuario-mesa-opcion:has(input:checked) {
+    border-color: #16805d;
+    background: #edf8f3;
+}
+
+.usuario-mesa-opcion input {
+    width: 18px;
+    height: 18px;
+    accent-color: #16805d;
+}
+
+.usuario-mesa-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.usuario-mesa-info span {
+    color: #666;
+    font-size: 14px;
+}
+
+.usuario-modal-acciones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.usuario-modal-acciones button {
+    cursor: pointer;
+}
+
+.usuario-modal-acciones button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+    .usuario-modal-contenido {
+        padding: 24px 18px;
+    }
+
+    .usuario-modal-acciones {
+        flex-direction: column;
+    }
+
+    .usuario-modal-acciones button {
+        width: 100%;
+    }
+}
