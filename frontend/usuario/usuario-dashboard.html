@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MesaLista | Mi cuenta</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="../js/api.js" defer></script>
+    <script src="../js/usuario.js" defer></script>
+</head>
+
+<body class="usuario-page">
+    <header class="usuario-header">
+        <a class="usuario-logo" href="#inicio">MesaLista<span>.</span></a>
+
+        <nav class="usuario-nav">
+            <a href="#inicio">Inicio</a>
+            <a href="#crear-reserva">Reservar</a>
+            <a href="#mis-reservas">Mis reservas</a>
+            <button id="cerrarSesion" class="btn-cerrar-sesion" type="button">
+                Cerrar sesión
+            </button>
+        </nav>
+    </header>
+
+    <main class="usuario-contenido">
+        <section class="usuario-bienvenida" id="inicio">
+            <div>
+                <p class="usuario-etiqueta">TU EXPERIENCIA, MÁS FÁCIL</p>
+                <h1>¡Bienvenido a MesaLista!</h1>
+                <p>Reserva tu mesa y organiza tu próxima visita.</p>
+                <p id="nombreUsuario" class="usuario-correo"></p>
+            </div>
+
+            <a class="usuario-boton-principal" href="#crear-reserva">
+                Hacer una reserva
+            </a>
+        </section>
+
+        <section class="usuario-seccion" id="crear-reserva">
+            <div class="usuario-titulo-seccion">
+                <p class="usuario-etiqueta">PLANEA TU VISITA</p>
+                <h2>Crear una reserva</h2>
+                <p>Selecciona la fecha, la hora y cuántas personas asistirán.</p>
+            </div>
+
+            <form id="formReserva" class="usuario-formulario">
+                <div class="usuario-campo">
+                    <label for="fecha">Fecha</label>
+                    <input type="date" id="fecha" name="date" required>
+                </div>
+
+                <div class="usuario-campo">
+                    <label for="hora">Hora</label>
+                    <input type="time" id="hora" name="time" required>
+                </div>
+
+                <div class="usuario-campo">
+                    <label for="personas">Número de personas</label>
+                    <input
+                        type="number"
+                        id="personas"
+                        name="people"
+                        min="1"
+                        max="20"
+                        value="2"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="usuario-boton-principal">
+                    Confirmar reserva
+                </button>
+
+                <p id="mensajeReserva" class="usuario-mensaje" role="status"></p>
+            </form>
+        </section>
+
+        <section class="usuario-seccion" id="mis-reservas">
+            <div class="usuario-titulo-seccion usuario-titulo-reservas">
+                <div>
+                    <p class="usuario-etiqueta">TU HISTORIAL</p>
+                    <h2>Mis reservas</h2>
+                    <p>Consulta y administra tus reservas.</p>
+                </div>
+
+                <button id="actualizarReservas" class="usuario-boton-secundario" type="button">
+                    Actualizar
+                </button>
+            </div>
+
+            <p id="mensajeListado" class="usuario-mensaje" role="status"></p>
+
+            <div class="usuario-tabla-contenedor">
+                <table class="usuario-tabla">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th>Personas</th>
+                            <th>Mesa</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaReservas">
+                        <tr>
+                            <td colspan="6">Cargando reservas...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer class="usuario-footer">
+        <p>© 2026 MesaLista. Tu mesa, a un clic.</p>
+    </footer>
+</body>
+</html>
