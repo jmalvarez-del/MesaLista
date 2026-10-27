@@ -10,6 +10,9 @@ const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const { authenticateToken, requireAdmin } = require("./middleware/authMiddleware");
 
+const MenuItem = require("./models/MenuItem");
+const menuRoutes = require("./routes/menuRoutes");
+
 const app = express();
 app.use(express.static(path.join(__dirname, "../frontend")));
 app.use(cors());
@@ -17,6 +20,7 @@ app.use(express.json());
 
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
+app.use("/menu", menuRoutes);
 
 app.post("/reservations/client", authenticateToken, async (req, res) => {
     try {
@@ -292,7 +296,7 @@ async function startServer() {
 
         console.log("✅ Conexión con PostgreSQL exitosa");
 
-        await sequelize.sync({ alter: true });
+        await sequelize.sync();
 
         console.log("✅ Tabla users sincronizada");
 

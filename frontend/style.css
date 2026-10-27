@@ -265,382 +265,109 @@ footer {
         padding: 10px;
     }
 }
+    
+/* ================================
+   MENÚ DIGITAL - MESALISTA
+================================ */
 
-/* ==============================
-   PANEL DE USUARIO
-============================== */
-
-.usuario-page {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f3f5f7;
-    color: #263238;
+.menu-seccion {
+    scroll-margin-top: 90px;
 }
 
-/* Encabezado */
-
-.usuario-page header {
-    background-color: #173b35;
-    color: white;
-    text-align: center;
-    padding: 30px 20px;
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 28px;
 }
 
-.usuario-page header h1 {
-    font-size: 40px;
-    margin: 0 0 10px;
+
+.menu-tarjeta {
+    min-width: 0;
+    overflow: hidden;
+    background-color: #ffffff;
+    border: 2px solid #D8A64E;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.usuario-page header p {
-    font-size: 16px;
-    margin: 0;
+.menu-tarjeta:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
 }
 
-/* Menú de navegación */
-
-.usuario-page nav {
+.menu-imagen {
     display: flex;
-    justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    background-color: #22594b;
-    padding: 15px 20px;
-}
-
-.usuario-page nav a {
-    color: white;
-    text-decoration: none;
-    padding: 10px 16px;
-    border-radius: 6px;
-    font-size: 15px;
-}
-
-.usuario-page nav a:hover {
-    background-color: #173b35;
-}
-
-/* Contenido principal */
-
-.usuario-page main {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
+    justify-content: center;
     width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 35px 20px;
-}
-
-/* Secciones */
-
-.usuario-page main section {
-    width: 100%;
-    max-width: none;
-    padding: 25px;
-    border-radius: 10px;
-    background-color: white;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
-}
-
-.usuario-page main section h2 {
-    text-align: left;
-    color: #173b35;
-    margin-top: 0;
-}
-
-.usuario-page main section p {
-    line-height: 1.6;
-}
-
-/* Formulario de reservas */
-
-.usuario-page form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.usuario-page label {
-    font-weight: bold;
-    margin-top: 8px;
-}
-
-.usuario-page input,
-.usuario-page select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #cbd5d1;
-    border-radius: 6px;
-    font-size: 16px;
-    background-color: white;
-}
-
-.usuario-page input:focus,
-.usuario-page select:focus {
-    outline: 2px solid #4b8f79;
-    border-color: #4b8f79;
-}
-
-/* Botones */
-
-.usuario-page button {
-    background-color: #26745c;
-    color: white;
-    border: none;
-    padding: 13px;
-    margin-top: 15px;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.usuario-page button:hover {
-    background-color: #1b5946;
-}
-
-/* Botón de cancelar reserva */
-
-.usuario-page button.btn-cancelar {
-    background-color: #a63d40;
-    padding: 9px 12px;
+    height: 200px;
+    overflow: hidden;
+    background-color: #f1eee9;
+    color: #756b60;
     font-size: 14px;
-}
-
-.usuario-page button.btn-cancelar:hover {
-    background-color: #842f32;
-}
-
-/* Tabla de reservas */
-
-.usuario-page table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background-color: white;
-}
-
-.usuario-page th,
-.usuario-page td {
-    text-align: left;
-    padding: 14px 12px;
-    border-bottom: 1px solid #e0e7e4;
-}
-
-.usuario-page th {
-    background-color: #e7f0ec;
-    color: #173b35;
-    font-size: 14px;
-}
-
-.usuario-page td {
-    font-size: 14px;
-}
-
-.usuario-page tbody tr:hover {
-    background-color: #f3f8f5;
-}
-
-/* Mensajes del sistema */
-
-.usuario-page .mensaje {
-    padding: 12px;
-    margin-top: 15px;
-    border-radius: 6px;
-    background-color: #e7f0ec;
-    color: #173b35;
-}
-
-/* Pie de página */
-
-.usuario-page footer {
-    margin-top: 20px;
-    background-color: #e7eeeb;
-    padding: 20px;
     text-align: center;
-    color: #65736f;
-    font-size: 14px;
 }
 
-/* 
-   DISEÑO RESPONSIVE */
+.menu-imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
+.menu-contenido {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px;
+}
+
+.menu-contenido h3 {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.35;
+}
+
+.menu-ingredientes {
+    margin: 0;
+    color: #666666;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.menu-precio {
+    margin: 4px 0 0;
+    color: #a85d25;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+/* Tablets */
+@media (max-width: 900px) {
+    .menu-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+    }
+}
+
+/* Celulares */
 @media (max-width: 600px) {
-    .usuario-page header {
-        padding: 24px 15px;
-    }
-
-    .usuario-page header h1 {
-        font-size: 30px;
-    }
-
-    .usuario-page header p {
-        font-size: 14px;
-    }
-
-    .usuario-page nav {
-        flex-direction: column;
-        align-items: stretch;
-        padding: 12px;
-    }
-
-    .usuario-page nav a {
-        text-align: center;
-    }
-
-    .usuario-page main {
-        padding: 20px 12px;
+    .menu-grid {
+        grid-template-columns: 1fr;
         gap: 18px;
     }
 
-    .usuario-page main section {
-        padding: 18px;
+    .menu-imagen {
+        height: 220px;
     }
 
-    .usuario-page table {
-        min-width: 600px;
+    .menu-contenido {
+        padding: 16px;
     }
 
-    .usuario-page th,
-    .usuario-page td {
-        padding: 10px;
-    }
-}
-.usuario-page .usuario-header .usuario-logo {
-    color: white;
-    font-family: Arial, sans-serif;
-    font-size: 40px;
-    font-weight: bold;
-    text-decoration: none;
-    line-height: normal;
-}
-
-.usuario-page .usuario-header .usuario-logo span {
-    color: white;
-    font-size: inherit;
-}
-
-@media (max-width: 600px) {
-    .usuario-page .usuario-header .usuario-logo {
-        font-size: 40px;
+    .menu-contenido h3 {
+        font-size: 18px;
     }
 }
 
-
-.usuario-modal[hidden] {
-    display: none !important;
-}
-
-.usuario-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.65);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    box-sizing: border-box;
-    z-index: 1000;
-}
-
-.usuario-modal-contenido {
-    background: white;
-    width: 100%;
-    max-width: 600px;
-    max-height: 85vh;
-    overflow-y: auto;
-    padding: 30px;
-    border-radius: 16px;
-    position: relative;
-    box-sizing: border-box;
-    color: #222;
-}
-
-.usuario-modal-contenido h2 {
-    margin-top: 5px;
-    margin-bottom: 10px;
-}
-
-.usuario-modal-cerrar {
-    position: absolute;
-    top: 12px;
-    right: 18px;
-    border: none;
-    background: transparent;
-    font-size: 30px;
-    cursor: pointer;
-    color: #444;
-}
-
-.usuario-lista-mesas {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin: 20px 0;
-}
-
-.usuario-mesa-opcion {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 16px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-.usuario-mesa-opcion:has(input:checked) {
-    border-color: #16805d;
-    background: #edf8f3;
-}
-
-.usuario-mesa-opcion input {
-    width: 18px;
-    height: 18px;
-    accent-color: #16805d;
-}
-
-.usuario-mesa-info {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.usuario-mesa-info span {
-    color: #666;
-    font-size: 14px;
-}
-
-.usuario-modal-acciones {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-    margin-top: 20px;
-}
-
-.usuario-modal-acciones button {
-    cursor: pointer;
-}
-
-.usuario-modal-acciones button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-@media (max-width: 600px) {
-    .usuario-modal-contenido {
-        padding: 24px 18px;
-    }
-
-    .usuario-modal-acciones {
-        flex-direction: column;
-    }
-
-    .usuario-modal-acciones button {
-        width: 100%;
-    }
-}

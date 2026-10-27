@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../style.css">
     <script src="../js/api.js" defer></script>
     <script src="../js/usuario.js" defer></script>
+    <script src="../js/menu.js" defer></script>
 </head>
 
 <body class="usuario-page">
@@ -15,6 +16,7 @@
 
         <nav class="usuario-nav">
             <a href="#inicio">Inicio</a>
+            <a href="#menu">Menú</a>
             <a href="#crear-reserva">Reservar</a>
             <a href="#mis-reservas">Mis reservas</a>
             <button id="cerrarSesion" class="btn-cerrar-sesion" type="button">
@@ -36,6 +38,22 @@
                 Hacer una reserva
             </a>
         </section>
+
+        
+<section class="usuario-seccion menu-seccion" id="menu">
+    <div class="usuario-titulo-seccion">
+        <p class="usuario-etiqueta">NUESTRO SABOR</p>
+        <h2>Descubre nuestro menú</h2>
+        <p>Conoce nuestros platos, sus ingredientes y sus precios.</p>
+    </div>
+
+    <p id="mensajeMenu" class="usuario-mensaje" role="status">
+        Cargando menú...
+    </p>
+
+    <div id="listaMenu" class="menu-grid"></div>
+</section>
+
 
         <section class="usuario-seccion" id="crear-reserva">
             <div class="usuario-titulo-seccion">

@@ -1,6 +1,8 @@
 
 const loginForm = document.getElementById("loginForm");
 const mensaje = document.getElementById("mensaje");
+console.log("Correo enviado:", JSON.stringify(email));
+console.log("Longitud de contraseña:", password.length);
 
 loginForm.addEventListener("submit", async function (event) {
     event.preventDefault();
