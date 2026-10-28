@@ -21,6 +21,9 @@ const {
     requireAdmin
 } = require("./middleware/authMiddleware");
 
+const MenuItem = require("./models/MenuItem");
+const menuRoutes = require("./routes/menuRoutes");
+
 const app = express();
 
 // Relaciones entre platos y reseñas de platos.
@@ -60,8 +63,13 @@ app.use(express.static(path.join(__dirname, "../frontend")));
 // Rutas principales.
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
+
+
 app.use("/dishes", dishRoutes);
 app.use("/restaurant-reviews", restaurantReviewRoutes);
+app.use("/menu", menuRoutes);
+
+
 
 // Crear una reserva desde el panel del cliente.
 app.post(
@@ -376,6 +384,7 @@ async function startServer() {
         await sequelize.authenticate();
 
         console.log("✅ Conexión con PostgreSQL exitosa");
+
 
         // Sincronizar modelos y relaciones con la base de datos.
         await sequelize.sync({ alter: true });

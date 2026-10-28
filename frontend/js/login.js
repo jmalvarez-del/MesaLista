@@ -4,6 +4,8 @@ const registroForm = document.getElementById("registroForm");
 const contenedorLogin = document.getElementById("contenedorLogin");
 const contenedorRegistro = document.getElementById("contenedorRegistro");
 const mensaje = document.getElementById("mensaje");
+console.log("Correo enviado:", JSON.stringify(email));
+console.log("Longitud de contraseña:", password.length);
 
 const mostrarRegistro = document.getElementById("mostrarRegistro");
 const mostrarLogin = document.getElementById("mostrarLogin");
