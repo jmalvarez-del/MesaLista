@@ -1,10 +1,14 @@
 
-import  BasicTypes from "./components/BasicTypes";
+import "./App.css";
+import { AuthProvider } from "./context/authContext";
+import { LoginPage } from "./pages/LoginPage";
 
 function App() {
   return (
     <>
-      <BasicTypes />
+      <AuthProvider>
+        <LoginPage />
+      </AuthProvider>
     </>
   );
 }
