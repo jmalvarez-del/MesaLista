@@ -17,6 +17,7 @@ interface AuthState {
   status: AuthStatus;
   token?: string;
   user?: User;
+  error?: string;
   isAuthenticated: boolean;
   isChecking: boolean;
   signIn: (email: string, password: string) => void;
@@ -35,19 +36,24 @@ export const useAuthContext = () => useContext(AuthContext);
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [status, setStatus] = useState<AuthStatus>("unauthenticated");
   const [user, setUser] = useState<User>();
+  const [error, setError] = useState<string>();
 
 function signIn(email: string, password: string) {
   const usersFound = USERS.filter(
     (value) => email === value.email && password === value.password,
   );
 
+  setError(undefined);
   setStatus("checking");
 
   if (usersFound.length > 0) {
     setUser(usersFound[0]);
     setTimeout(() => setStatus("authenticated"), 3000);
   } else {
-    setTimeout(() => setStatus("unauthenticated"), 3000);
+    setTimeout(() => {
+      setStatus("unauthenticated");
+      setError("Correo o contraseña incorrectos.");
+    }, 3000);
   }
 }
   return (
@@ -58,6 +64,7 @@ function signIn(email: string, password: string) {
   isAuthenticated: status === "authenticated",
   user,
   signIn,
+  error,
     }}
     >
       {children}

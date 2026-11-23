@@ -7,7 +7,7 @@ export const LoginPage = () => {
   const [inputEmail, setInputEmail] = useState("");
   const [inputPassword, setInputPassword] = useState("");
 
-  const { isChecking, isAuthenticated, user, signIn } = useAuthContext();
+  const { isChecking, isAuthenticated, user, signIn, error } = useAuthContext();
 
   if (isChecking) {
     return (
@@ -75,7 +75,11 @@ export const LoginPage = () => {
                 onChange={(e) => setInputPassword(e.target.value)}
               />
             </div>
-
+            {error && (
+              <p className="text-red-500 text-sm text-center">
+                {error}
+              </p>
+            )}
             <button
               className="bg-blue-500 hover:bg-blue-600 text-white font-semibold p-3 rounded-lg transition-colors"
               onClick={() => signIn(inputEmail, inputPassword)}
