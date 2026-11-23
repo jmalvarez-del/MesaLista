@@ -178,11 +178,17 @@ export const Users = () => {
     }
 
     return (
-        <div className="p-6 text-white">
-            <h2 className="text-2xl font-bold mb-6">
+        <div className="min-h-full bg-slate-100 p-6">
+
+        <div className="mb-6">
+            <h2 className="text-3xl font-bold text-slate-800">
                 Gestión de usuarios
             </h2>
 
+            <p className="mt-2 text-slate-600">
+                Consulta y administra los usuarios registrados en MesaLista.
+            </p>
+        </div>
             {actionError && (
                 <div className="mb-4 rounded-lg border border-red-500/30 bg-red-500/10 p-3 text-red-300">
                     {actionError}

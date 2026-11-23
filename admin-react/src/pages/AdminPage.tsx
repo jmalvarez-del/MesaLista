@@ -129,31 +129,6 @@ export const AdminPage = () => {
             </div>
           </section>
         )}
-
-        {/* SECCIÓN RESERVAS */}
-        {activeSection === "reservas" && (
-          <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-7">
-            <h3 className="text-xl font-semibold text-slate-800">
-              Gestión de reservas
-            </h3>
-            <p className="text-gray-500 mt-2">
-              Aquí mostraremos las reservas registradas en el restaurante.
-            </p>
-          </section>
-        )}
-
-        {/* SECCIÓN USUARIOS */}
-        {activeSection === "usuarios" && (
-          <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-7">
-            <h3 className="text-xl font-semibold text-slate-800">
-              Gestión de usuarios
-            </h3>
-            <p className="text-gray-500 mt-2">
-              Aquí mostraremos los usuarios registrados en MesaLista.
-            </p>
-          </section>
-        )}
-
       </main>
     </div>
   );
