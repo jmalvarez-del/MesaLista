@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuthContext } from "../context/authContext";
+import { Reservations } from "../components/admin/Reservations";
 
 type Section = "inicio" | "reservas" | "usuarios";
 
@@ -69,7 +70,7 @@ export const AdminPage = () => {
         <header className="mb-8">
           <h2 className="text-3xl font-bold text-slate-800">
             {activeSection === "inicio" && "Inicio"}
-            {activeSection === "reservas" && "Gestión de reservas"}
+            {activeSection === "reservas" && <Reservations />}
             {activeSection === "usuarios" && "Gestión de usuarios"}
           </h2>
 
