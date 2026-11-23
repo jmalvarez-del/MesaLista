@@ -106,7 +106,128 @@ const createUser = async (req, res) => {
     }
 };
 
+const updateUser = async (req, res) => {
+    try {
+        const user = await User.findByPk(req.params.id);
+
+        if (!user) {
+            return res.status(404).json({
+                error: "Usuario no encontrado"
+            });
+        }
+
+        const { name, age, email, role } = req.body;
+
+        if (
+            typeof name !== "string" ||
+            typeof email !== "string" ||
+            name.trim() === "" ||
+            email.trim() === ""
+        ) {
+            return res.status(400).json({
+                error: "El nombre y el correo son obligatorios"
+            });
+        }
+
+        const edad = Number(age);
+        const correo = email.trim().toLowerCase();
+
+        if (!Number.isInteger(edad) || edad < 18 || edad > 120) {
+            return res.status(400).json({
+                error: "La edad debe ser un número entero entre 18 y 120"
+            });
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
+            return res.status(400).json({
+                error: "Ingresa un correo electrónico válido"
+            });
+        }
+
+        if (!["usuario", "admin"].includes(role)) {
+            return res.status(400).json({
+                error: "El rol seleccionado no es válido"
+            });
+        }
+
+        const emailExistente = await User.findOne({
+            where: { email: correo }
+        });
+
+        if (emailExistente && emailExistente.id !== user.id) {
+            return res.status(409).json({
+                error: "Ya existe otro usuario con ese correo electrónico"
+            });
+        }
+
+        await user.update({
+            name: name.trim(),
+            age: edad,
+            email: correo,
+            role
+        });
+
+        return res.json({
+            message: "Usuario actualizado correctamente",
+            user: {
+                id: user.id,
+                name: user.name,
+                age: user.age,
+                email: user.email,
+                role: user.role
+            }
+        });
+
+    } catch (error) {
+        console.error("Error al actualizar usuario:", error);
+
+        return res.status(500).json({
+            error: "Error al actualizar el usuario"
+        });
+    }
+};
+
+const deleteUser = async (req, res) => {
+    try {
+        const user = await User.findByPk(req.params.id);
+
+        if (!user) {
+            return res.status(404).json({
+                error: "Usuario no encontrado"
+            });
+        }
+
+        // Evitar que el administrador elimine su propia cuenta.
+        if (Number(req.params.id) === Number(req.user.id)) {
+            return res.status(400).json({
+                error: "No puedes eliminar tu propia cuenta"
+            });
+        }
+
+        await user.destroy();
+
+        return res.json({
+            message: "Usuario eliminado correctamente"
+        });
+
+    } catch (error) {
+        console.error("Error al eliminar usuario:", error);
+
+        if (error.name === "SequelizeForeignKeyConstraintError") {
+            return res.status(409).json({
+                error: "No se puede eliminar este usuario porque tiene reservas asociadas"
+            });
+        }
+
+        return res.status(500).json({
+            error: "Error al eliminar el usuario"
+        });
+    }
+};
+
 module.exports = {
     getUsers,
-    createUser
+    createUser,
+    deleteUser,
+    updateUser
 };
