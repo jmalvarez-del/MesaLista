@@ -7,6 +7,16 @@ const sequelize = require("./config/database");
 const User = require("./models/User");
 const Reservation = require("./models/Reservation");
 const Table = require("./models/Table");
+// Relaciones entre Usuario y Reserva
+User.hasMany(Reservation, {
+    foreignKey: "userId",
+    as: "reservations"
+});
+
+Reservation.belongsTo(User, {
+    foreignKey: "userId",
+    as: "user"
+});
 const Dish = require("./models/Dish");
 const Review = require("./models/Review");
 const RestaurantReview = require("./models/RestaurantReview");
@@ -275,9 +285,20 @@ app.get(
     requireAdmin,
     async (req, res) => {
         try {
-            const reservations = await Reservation.findAll();
+            const reservations = await Reservation.findAll({
+                include: [
+                    {
+                        model: User,
+                        as: "user",
+                        attributes: ["name", "email"]
+                    }
+                ]
+            });
+
             return res.json(reservations);
         } catch (error) {
+            console.error("Error al obtener reservas:", error);
+
             return res.status(500).json({
                 error: "Error al obtener las reservas"
             });

@@ -9,8 +9,11 @@ interface Reservation {
   time: string;
   numberOfPeople: number;
   status: string;
+  user: {
+    name: string;
+    email: string;
+  };
 }
-
 export function Reservations() {
   const { token } = useAuthContext();
 
@@ -35,6 +38,7 @@ export function Reservations() {
         }
 
         const data = await response.json();
+      
         setReservations(data);
       } catch (error) {
         setError(
@@ -112,13 +116,19 @@ export function Reservations() {
                 </td>
 
                 <td className="px-5 py-4">
-                  Usuario {reservation.userId}
-                </td>
+                    <div className="font-semibold text-white">
+                     {reservation.user?.name || "Sin nombre"}
+                    </div>
+
+                     <div className="text-sm text-slate-400">
+                         {reservation.user?.email || "Sin correo"}
+                     </div>
+               </td>
 
                 <td className="px-5 py-4">
                   Mesa {reservation.tableNumber}
                 </td>
-
+{}
                 <td className="px-5 py-4">
                   {reservation.date}
                 </td>
