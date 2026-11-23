@@ -29,23 +29,52 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [status, setStatus] = useState<AuthStatus>("unauthenticated");
   const [user, setUser] = useState<User>();
   const [error, setError] = useState<string>();
+  const [token, setToken] = useState<string>();
 
-function signIn(email: string, password: string) {
-  const usersFound = USERS.filter(
-    (value) => email === value.email && password === value.password,
-  );
-
-  setError(undefined);
+async function signIn(email: string, password: string): Promise<void> {
   setStatus("checking");
+  setError(undefined);
 
-  if (usersFound.length > 0) {
-    setUser(usersFound[0]);
-    setTimeout(() => setStatus("authenticated"), 3000);
-  } else {
-    setTimeout(() => {
+  try {
+    const response = await fetch("http://localhost:3000/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "Error al iniciar sesión");
+    }
+
+    if (data.user.role !== "admin") {
+      setUser(undefined);
+      setToken(undefined);
       setStatus("unauthenticated");
-      setError("Correo o contraseña incorrectos.");
-    }, 3000);
+      setError("No tienes permisos de administrador.");
+      return;
+    }
+
+    setUser(data.user);
+    setToken(data.token);
+    setStatus("authenticated");
+
+  } catch (error) {
+    setUser(undefined);
+    setToken(undefined);
+    setStatus("unauthenticated");
+
+    setError(
+      error instanceof Error
+        ? error.message
+        : "Error al iniciar sesión"
+    );
   }
 }
   return (
@@ -57,6 +86,7 @@ function signIn(email: string, password: string) {
   user,
   signIn,
   error,
+  token,
     }}
     >
       {children}
