@@ -21,6 +21,7 @@ interface AuthState {
   isAuthenticated: boolean;
   isChecking: boolean;
   signIn: (email: string, password: string) => Promise<void>;
+  signOut: () => void;
 }
 export const AuthContext = createContext({} as AuthState);
 export const useAuthContext = () => useContext(AuthContext);
@@ -77,6 +78,13 @@ async function signIn(email: string, password: string): Promise<void> {
     );
   }
 }
+
+function signOut(): void {
+  setUser(undefined);
+  setToken(undefined);
+  setError(undefined);
+  setStatus("unauthenticated");
+}
   return (
     <AuthContext.Provider
       value={{
@@ -85,6 +93,7 @@ async function signIn(email: string, password: string): Promise<void> {
   isAuthenticated: status === "authenticated",
   user,
   signIn,
+  signOut,
   error,
   token,
     }}

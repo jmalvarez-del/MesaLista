@@ -8,7 +8,7 @@ type Section = "inicio" | "reservas" | "usuarios";
 export const AdminPage = () => {
   const [activeSection, setActiveSection] = useState<Section>("inicio");
 
-  const { user } = useAuthContext();
+  const { user, signOut } = useAuthContext();
 
   const menuItems = [
     { id: "inicio", name: "Inicio", icon: "⌂" },
@@ -54,16 +54,26 @@ export const AdminPage = () => {
           </div>
         </nav>
 
-        <div className="px-6 py-5 border-t border-slate-700">
-          <p className="text-sm font-semibold">
-            {user?.name || "Administrador"}
-          </p>
-          <p className="text-xs text-slate-400 mt-1">
-            Administrador
-          </p>
-        </div>
+       <div className="px-6 py-5 border-t border-slate-700">
+  <p className="text-sm font-semibold">
+    {user?.name || "Administrador"}
+  </p>
 
+  <p className="text-xs text-slate-400 mt-1">
+    Administrador
+  </p>
+
+  <button
+    onClick={signOut}
+    className="w-full mt-5 px-4 py-3 rounded-lg text-left text-red-400 hover:bg-slate-800 hover:text-red-300 transition-colors"
+  >
+    <span className="mr-3">↪</span>
+    Cerrar sesión
+  </button>
+</div>
       </aside>
+
+
 
       {/* CONTENIDO PRINCIPAL */}
       <main className="flex-1 p-8">
