@@ -40,9 +40,15 @@ const login = async (req, res) => {
         );
 
         res.json({
-            message: "Login exitoso",
-            token
-        });
+       message: "Login exitoso",
+    token,
+    user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+    }
+});
 
     } catch (error) {
         res.status(500).json({

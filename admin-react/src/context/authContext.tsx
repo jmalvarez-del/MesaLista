@@ -10,7 +10,7 @@ interface User {
   id: number;
   name: string;
   email: string;
-  password: string;
+  role: string;
 }
 
 interface AuthState {
@@ -20,16 +20,8 @@ interface AuthState {
   error?: string;
   isAuthenticated: boolean;
   isChecking: boolean;
-  signIn: (email: string, password: string) => void;
+  signIn: (email: string, password: string) => Promise<void>;
 }
-const USERS: User[] = [
-  {
-    id: 1,
-    name: "Administrador",
-    email: "admin@mesalista.com",
-    password: "123456",
-  },
-];
 export const AuthContext = createContext({} as AuthState);
 export const useAuthContext = () => useContext(AuthContext);
 
