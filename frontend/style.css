@@ -790,3 +790,74 @@ footer {
         gap: 6px;
     }
 }
+
+/* Mejoras del formulario de reservas */
+
+.usuario-formulario select,
+.usuario-modal-contenido select {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    background-color: #ffffff;
+    color: #1f2937;
+    font-size: 15px;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.usuario-formulario select:focus,
+.usuario-modal-contenido select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.usuario-formulario .usuario-campo small,
+.usuario-modal-contenido .usuario-campo small {
+    display: block;
+    margin-top: 7px;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.usuario-resumen-reserva {
+    background: #f1f5f9;
+    padding: 16px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.usuario-resumen-reserva h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
+    color: #1e293b;
+}
+
+.usuario-resumen-reserva p {    
+    margin: 0;
+    color: #475569;
+    line-height: 1.6;
+}
+
+.usuario-modal-contenido .usuario-campo {
+    margin-top: 20px;
+}
+
+.usuario-modal-acciones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+@media (max-width: 600px) {
+    .usuario-modal-acciones {
+        flex-direction: column;
+    }
+
+    .usuario-modal-acciones button {
+        width: 100%;
+    }
+}

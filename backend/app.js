@@ -232,19 +232,23 @@ app.get(
                     }
                 }
             });
+             const reservas = await Reservation.findAll({
+    where: {
+        date,
+        time,
+        status: {
+            [Op.not]: "cancelada"
+        }
+    }
+});
 
-            const reservas = await Reservation.findAll({
-                where: { date, time }
-            });
+const mesasOcupadas = reservas.map(
+    reserva => reserva.tableNumber
+);
 
-            const mesasOcupadas = reservas.map(
-                reserva => reserva.tableNumber
-            );
-
-            const mesasDisponibles = mesas.filter(
-                mesa => !mesasOcupadas.includes(mesa.number)
-            );
-
+const mesasDisponibles = mesas.filter(
+    mesa => !mesasOcupadas.includes(mesa.number)
+);
             return res.json(mesasDisponibles);
         } catch (error) {
             console.error("Error al consultar mesas:", error);

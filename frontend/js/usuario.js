@@ -5,6 +5,7 @@ const usuarioGuardado = localStorage.getItem("usuario");
 
 const nombreUsuario = document.getElementById("nombreUsuario");
 const cerrarSesion = document.getElementById("cerrarSesion");
+const selectorMesas = document.getElementById("listaMesas");
 const formReserva = document.getElementById("formReserva");
 const mensajeReserva = document.getElementById("mensajeReserva");
 const mensajeListado = document.getElementById("mensajeListado");
@@ -164,10 +165,9 @@ formReserva.addEventListener("submit", async (evento) => {
     }
 });
 
-
-/* Mostrar las mesas devueltas por el backend. */
 function mostrarMesasDisponibles(mesas) {
     listaMesas.replaceChildren();
+
     mensajeMesas.textContent = "";
     confirmarMesa.disabled = true;
 
@@ -175,51 +175,44 @@ function mostrarMesasDisponibles(mesas) {
         `${reservaPendiente.date} · ${reservaPendiente.time} · ` +
         `${reservaPendiente.numberOfPeople} persona(s)`;
 
+    const opcionInicial = document.createElement("option");
+
+    opcionInicial.value = "";
+    opcionInicial.textContent = "Selecciona una mesa disponible";
+
+    selectorMesas.appendChild(opcionInicial);
+
     mesas.forEach((mesa) => {
-        const etiqueta = document.createElement("label");
-        etiqueta.className = "usuario-mesa-opcion";
+        const opcion = document.createElement("option");
 
-        const radio = document.createElement("input");
-        radio.type = "radio";
-        radio.name = "mesaSeleccionada";
-        radio.value = mesa.number;
-        radio.required = true;
+        opcion.value = mesa.number;
+        opcion.textContent =
+            `Mesa ${mesa.number} — ${mesa.type} — ` +
+            `Capacidad: ${mesa.capacity} personas`;
 
-        radio.addEventListener("change", () => {
-            confirmarMesa.disabled = false;
-        });
-
-        const informacion = document.createElement("div");
-        informacion.className = "usuario-mesa-info";
-
-        const nombre = document.createElement("strong");
-        nombre.textContent = `Mesa ${mesa.number}`;
-
-        const detalle = document.createElement("span");
-        detalle.textContent =
-            `${mesa.type} · Capacidad para ${mesa.capacity} persona(s)`;
-
-        informacion.append(nombre, detalle);
-        etiqueta.append(radio, informacion);
-        listaMesas.appendChild(etiqueta);
+        selectorMesas.appendChild(opcion);
     });
+
+    selectorMesas.value = "";
+
+    // Habilitar el botón cuando se seleccione una mesa.
+    selectorMesas.onchange = () => {
+        confirmarMesa.disabled = selectorMesas.value === "";
+    };
 
     modalMesas.hidden = false;
 }
 
-
 /* Confirmar la mesa elegida y crear la reserva. */
 confirmarMesa.addEventListener("click", async () => {
-    const seleccion = document.querySelector(
-        'input[name="mesaSeleccionada"]:checked'
-    );
 
-    if (!seleccion || !reservaPendiente) {
-        mensajeMesas.textContent = "Selecciona una mesa para continuar.";
+    const tableNumber = Number(selectorMesas.value);
+
+    if (!selectorMesas.value || !reservaPendiente) {
+        mensajeMesas.textContent =
+            "Selecciona una mesa para continuar.";
         return;
     }
-
-    const tableNumber = Number(seleccion.value);
 
     confirmarMesa.disabled = true;
     cancelarSeleccionMesa.disabled = true;
@@ -238,21 +231,46 @@ confirmarMesa.addEventListener("click", async () => {
             })
         });
 
+        const reservaConfirmada = { ...reservaPendiente };
+
         cerrarVentanaMesas();
 
         mensajeReserva.textContent =
             "¡Reserva creada correctamente!";
+
         mensajeReserva.className =
             "usuario-mensaje mensaje-exito";
 
         formReserva.reset();
+
         fechaInput.min = fechaLocal;
+
         document.getElementById("personas").value = 2;
 
         await cargarReservas();
 
+        // Consultar nuevamente las mesas para la misma solicitud.
+        const parametros = new URLSearchParams({
+            date: reservaConfirmada.date,
+            time: reservaConfirmada.time,
+            numberOfPeople: String(
+                reservaConfirmada.numberOfPeople
+            )
+        });
+
+        const mesasActualizadas = await solicitarAPI(
+            `/reservations/available?${parametros.toString()}`
+        );
+
+        console.log(
+            "Mesas disponibles después de la reserva:",
+            mesasActualizadas
+        );
+
     } catch (error) {
+
         mensajeMesas.textContent = error.message;
+
         mensajeMesas.className =
             "usuario-mensaje mensaje-error";
 
@@ -262,11 +280,17 @@ confirmarMesa.addEventListener("click", async () => {
     }
 });
 
-
-/* Cerrar la ventana sin crear una reserva. */
 function cerrarVentanaMesas() {
     modalMesas.hidden = true;
-    listaMesas.replaceChildren();
+
+    selectorMesas.replaceChildren();
+
+    const opcionInicial = document.createElement("option");
+    opcionInicial.value = "";
+    opcionInicial.textContent = "Selecciona una mesa disponible";
+
+    selectorMesas.appendChild(opcionInicial);
+
     mensajeMesas.textContent = "";
     mensajeMesas.className = "usuario-mensaje";
 
