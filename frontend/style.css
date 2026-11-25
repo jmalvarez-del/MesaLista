@@ -861,3 +861,85 @@ footer {
         width: 100%;
     }
 }
+
+
+/* Mejoras visuales del menu */
+
+.menu-seccion {
+    padding: 35px;
+}
+
+.menu-seccion .usuario-titulo-seccion {
+    margin-bottom: 30px;
+}
+
+.menu-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+}
+
+.menu-tarjeta {
+    border: 1px solid #eee5d8;
+    border-radius: 16px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.07);
+}
+
+.menu-tarjeta:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+}
+
+.menu-imagen {
+    height: 220px;
+    background-color: #f5f0e8;
+}
+
+.menu-imagen img {
+    transition: transform 0.35s ease;
+}
+
+.menu-tarjeta:hover .menu-imagen img {
+    transform: scale(1.05);
+}
+
+.menu-contenido {
+    padding: 22px;
+    gap: 12px;
+}
+
+.menu-contenido h3 {
+    color: #173b35;
+    font-size: 21px;
+}
+
+.menu-ingredientes {
+    min-height: 68px;
+    line-height: 1.6;
+}
+
+.menu-precio {
+    color: #a85d25;
+    font-size: 22px;
+    border-top: 1px solid #eee5d8;
+    padding-top: 14px;
+}
+
+@media (max-width: 900px) {
+    .menu-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .menu-seccion {
+        padding: 22px;
+    }
+
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .menu-imagen {
+        height: 230px;
+    }
+}
