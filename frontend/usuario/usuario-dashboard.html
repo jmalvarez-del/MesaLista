@@ -5,26 +5,29 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>MesaLista | Mi cuenta</title>
         <link rel="stylesheet" href="../style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
         <script src="../js/api.js" defer></script>
         <script src="../js/usuario.js" defer></script>
         <script src="../js/menu.js" defer></script>
     </head>
 
     <body class="usuario-page">
-        <header class="usuario-header">
-            <a class="usuario-logo" href="#inicio">MesaLista<span>.</span></a>
+      
+    <header class="encabezado">
+       <a href="#" class="logo-mesalista">MesaLista</a>
 
-            <nav class="usuario-nav">
-                <a href="#inicio">Inicio</a>
-                <a href="#menu">Menú</a>
-                <a href="#crear-reserva">Reservar</a>
-                <a href="#mis-reservas">Mis reservas</a>
-                <a href="#resenas">Reseñas</a>
-                <button id="cerrarSesion" class="btn-cerrar-sesion" type="button">
-                    Cerrar sesión
-                </button>
-            </nav>
-        </header>
+        <nav class="menu-navegacion">
+            <a href="#inicio">Inicio</a>
+            <a href="#menu">Menú</a>
+            <a href="#reservar">Reservar</a>
+            <a href="#mis-reservas">Mis reservas</a>
+            <a href="#resenas">Reseñas</a>
+            <a href="#" id="cerrarSesion">Cerrar sesión</a>
+        </nav>
+    </header>
+
 
         <main class="usuario-contenido">
             <section class="usuario-bienvenida" id="inicio">
@@ -172,7 +175,7 @@
                             </tr>
                         </tbody>
                     </table>
-                </div
+                </div>
             </section>
     <section class="usuario-seccion" id="resenas">
         <div class="usuario-titulo-seccion">

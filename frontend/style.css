@@ -943,3 +943,170 @@ footer {
         height: 230px;
     }
 }
+
+
+/* TIPOGRAFIA DE MESALISTA */
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Titulos principales */
+.usuario-titulo-seccion h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: #173b35;
+    margin-top: 8px;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+}
+
+/* Etiqueta superior del menu */
+.menu-seccion .usuario-titulo-seccion > p:first-child {
+    color: #a85d25;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+@media (max-width: 600px) {
+    .usuario-titulo-seccion h2 {
+        font-size: 29px;
+    }
+}
+
+
+/* NAVEGACION PRINCIPAL DE MESALISTA */
+
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    background: rgba(23, 59, 53, 0.96);
+    padding: 16px 25px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+}
+
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+
+    padding: 11px 18px;
+    border-radius: 8px;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+
+    transition: all 0.25s ease;
+}
+
+nav a:hover {
+    background-color: #d8a64e;
+    color: #173b35;
+    transform: translateY(-2px);
+}
+
+/* Boton cerrar sesion */
+nav a:last-child {
+    background-color: #26745c;
+    font-weight: 700;
+}
+
+nav a:last-child:hover {
+    background-color: #d8a64e;
+    color: #173b35;
+}
+
+
+/* ENCABEZADO MESALISTA */
+.encabezado {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: #173b35;
+    padding: 12px 20px;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* LOGOTIPO */
+.logo-mesalista {
+    display: block;
+    margin-bottom: 12px;
+    color: white;
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    text-decoration: none;
+}
+
+/* NAVEGACION */
+.menu-navegacion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    background: #22594b;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.menu-navegacion a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 9px 13px;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+.menu-navegacion a:hover {
+    background: #d8a64e;
+    color: #173b35;
+}
+
+/* ESPACIO PARA EL ENCABEZADO FIJO */
+body {
+    padding-top: 145px;
+}
+
+/* ADAPTACION A CELULARES */
+@media (max-width: 600px) {
+    .encabezado {
+        padding: 10px 6px;
+    }
+
+    .logo-mesalista {
+        font-size: 30px;
+        margin-bottom: 8px;
+    }
+
+    .menu-navegacion {
+        gap: 4px;
+        padding: 7px 3px;
+    }
+
+    .menu-navegacion a {
+        font-size: 12px;
+        padding: 7px;
+    }
+
+    body {
+        padding-top: 140px;
+    }
+}
