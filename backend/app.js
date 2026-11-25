@@ -376,29 +376,55 @@ app.put(
     }
 );
 
-// Eliminar una reserva (administrador).
+// Cancelar una reserva del cliente o eliminarla como administrador.
 app.delete(
     "/reservations/:id",
     authenticateToken,
-    requireAdmin,
     async (req, res) => {
         try {
-            const reservation = await Reservation.findByPk(req.params.id);
+            const reserva = await Reservation.findByPk(req.params.id);
 
-            if (!reservation) {
+            if (!reserva) {
                 return res.status(404).json({
                     error: "Reserva no encontrada"
                 });
             }
 
-            await reservation.destroy();
+            // El administrador puede eliminar cualquier reserva.
+            if (req.user.role === "admin") {
+                await reserva.destroy();
+
+                return res.json({
+                    message: "Reserva eliminada correctamente"
+                });
+            }
+
+            // El cliente solamente puede cancelar sus propias reservas.
+            if (String(reserva.userId) !== String(req.user.id)) {
+                return res.status(403).json({
+                    error: "No tienes permiso para cancelar esta reserva"
+                });
+            }
+
+            if (reserva.status === "cancelada") {
+                return res.status(400).json({
+                    error: "Esta reserva ya está cancelada"
+                });
+            }
+
+            await reserva.update({
+                status: "cancelada"
+            });
 
             return res.json({
-                message: "Reserva eliminada correctamente"
+                message: "Reserva cancelada correctamente"
             });
+
         } catch (error) {
+            console.error("Error al cancelar reserva:", error);
+
             return res.status(500).json({
-                error: "Error al eliminar la reserva"
+                error: "No fue posible cancelar la reserva"
             });
         }
     }

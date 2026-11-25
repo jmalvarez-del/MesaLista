@@ -408,14 +408,13 @@ async function cancelarReserva(id, boton) {
         await solicitarAPI(`/reservations/${encodeURIComponent(id)}`, {
             method: "DELETE"
         });
-
+        await cargarReservas();
         mensajeListado.textContent = "Reserva cancelada correctamente.";
         mensajeListado.className = "usuario-mensaje mensaje-exito";
-        await cargarReservas();
+        
     } catch (error) {
         mensajeListado.textContent =
-            `${error.message} Si el backend no permite cancelar desde el panel del cliente, ` +
-            "Darwin debe habilitar esa operación en la ruta de reservas.";
+            `${error.message} ERROR: YA ESTA CANCELADA`;
         mensajeListado.className = "usuario-mensaje mensaje-error";
         boton.disabled = false;
     }

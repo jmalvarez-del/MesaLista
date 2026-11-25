@@ -1110,3 +1110,46 @@ body {
         padding-top: 140px;
     }
 }
+
+
+/* AJUSTES EXCLUSIVOS DEL LOGIN */
+
+body.login-page {
+    padding-top: 0;
+}
+
+body.login-page header {
+    position: static;
+    width: 100%;
+    margin: 0;
+}
+
+body.login-page main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 45px 20px;
+}
+
+body.login-page main section {
+    width: 100%;
+    max-width: 500px;
+    padding: 30px;
+}
+
+body.login-page section h2 {
+    text-align: left;
+}
+
+@media (max-width: 600px) {
+    body.login-page main {
+        padding: 25px 15px;
+    }
+
+    body.login-page main section {
+        padding: 22px;
+    }
+}
